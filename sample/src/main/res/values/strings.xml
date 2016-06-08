@@ -2,4 +2,5 @@
     <string name="app_name">Header Decor</string>
     <string name="about">About</string>
     <string name="clear_cache">Clear Cache</string>
+    <string name="toggle_top_margin">Toggle MarginTop</string>
 </resources>

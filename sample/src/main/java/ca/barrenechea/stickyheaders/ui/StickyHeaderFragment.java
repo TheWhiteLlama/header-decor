@@ -17,6 +17,7 @@
 package ca.barrenechea.stickyheaders.ui;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import ca.barrenechea.stickyheaders.R;
@@ -24,6 +25,8 @@ import ca.barrenechea.stickyheaders.widget.StickyTestAdapter;
 import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderDecoration;
 
 public class StickyHeaderFragment extends BaseDecorationFragment {
+
+    private RecyclerView list;
 
     private StickyHeaderDecoration decor;
 
@@ -33,17 +36,34 @@ public class StickyHeaderFragment extends BaseDecorationFragment {
         decor = new StickyHeaderDecoration(adapter);
         setHasOptionsMenu(true);
 
-        list.setAdapter(adapter);
-        list.addItemDecoration(decor, 1);
+        this.list = list;
+        this.list.setAdapter(adapter);
+        this.list.addItemDecoration(decor, 1);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        final MenuItem item = menu.findItem(R.id.action_toggle_top_margin);
+        item.setVisible(true);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_clear_cache) {
-            decor.clearHeaderCache();
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_clear_cache:
+                decor.clearHeaderCache();
+                return true;
+            case R.id.action_toggle_top_margin:
+                if (decor.hasMarginTop()) {
+                    decor.clearMarginTop();
+                } else {
+                    decor.setMarginTop(R.dimen.margin_top);
+                }
+                decor.clearHeaderCache();
+                list.invalidate();
+                return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
