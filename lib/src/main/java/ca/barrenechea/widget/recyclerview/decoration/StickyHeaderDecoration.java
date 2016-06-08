@@ -18,6 +18,7 @@ package ca.barrenechea.widget.recyclerview.decoration;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.support.annotation.DimenRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,17 +37,17 @@ public class StickyHeaderDecoration extends RecyclerView.ItemDecoration {
 
     private boolean mRenderInline;
 
+    private int marginTop = -1;
+
     /**
-     * @param adapter
-     *         the sticky header adapter to use
+     * @param adapter the sticky header adapter to use
      */
     public StickyHeaderDecoration(StickyHeaderAdapter adapter) {
         this(adapter, false);
     }
 
     /**
-     * @param adapter
-     *         the sticky header adapter to use
+     * @param adapter the sticky header adapter to use
      */
     public StickyHeaderDecoration(StickyHeaderAdapter adapter, boolean renderInline) {
         mAdapter = adapter;
@@ -143,6 +144,7 @@ public class StickyHeaderDecoration extends RecyclerView.ItemDecoration {
     private int getHeaderTop(RecyclerView parent, View child, View header, int adapterPos, int layoutPos) {
         int headerHeight = getHeaderHeightForLayout(header);
         int top = ((int) child.getY()) - headerHeight;
+        final int marginTop = this.marginTop == -1 ? 0 : header.getContext().getResources().getDimensionPixelSize(this.marginTop);
         if (layoutPos == 0) {
             final int count = parent.getChildCount();
             final long currentId = mAdapter.getHeaderId(adapterPos);
@@ -154,7 +156,7 @@ public class StickyHeaderDecoration extends RecyclerView.ItemDecoration {
                     if (nextId != currentId) {
                         final View next = parent.getChildAt(i);
                         final int offset = ((int) next.getY()) - (headerHeight + getHeader(parent, adapterPosHere).itemView.getHeight());
-                        if (offset < 0) {
+                        if (offset < marginTop) {
                             return offset;
                         } else {
                             break;
@@ -163,7 +165,7 @@ public class StickyHeaderDecoration extends RecyclerView.ItemDecoration {
                 }
             }
 
-            top = Math.max(0, top);
+            top = Math.max(marginTop, top);
         }
 
         return top;
@@ -172,4 +174,9 @@ public class StickyHeaderDecoration extends RecyclerView.ItemDecoration {
     private int getHeaderHeightForLayout(View header) {
         return mRenderInline ? 0 : header.getHeight();
     }
+
+    public void setMarginTop(@DimenRes int marginTop) {
+        this.marginTop = marginTop;
+    }
+
 }

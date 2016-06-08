@@ -88,4 +88,5 @@ public class StickyTestAdapter extends RecyclerView.Adapter<StickyTestAdapter.Vi
             header = (TextView) itemView;
         }
     }
+
 }
