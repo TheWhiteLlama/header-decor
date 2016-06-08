@@ -82,12 +82,12 @@ public class StickyHeaderDecoration extends RecyclerView.ItemDecoration {
     }
 
     private boolean hasHeader(int position) {
-        if (position == 0) {
+        if (position == 0 && mAdapter.getHeaderId(position) != RecyclerView.NO_ID) {
             return true;
         }
 
         int previous = position - 1;
-        return mAdapter.getHeaderId(position) != mAdapter.getHeaderId(previous);
+        return mAdapter.getHeaderId(position) != RecyclerView.NO_ID && mAdapter.getHeaderId(position) != mAdapter.getHeaderId(previous);
     }
 
     private RecyclerView.ViewHolder getHeader(RecyclerView parent, int position) {
