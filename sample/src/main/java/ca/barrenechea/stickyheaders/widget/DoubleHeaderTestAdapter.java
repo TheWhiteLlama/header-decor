@@ -16,6 +16,7 @@
 
 package ca.barrenechea.stickyheaders.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,8 +27,7 @@ import android.widget.TextView;
 import ca.barrenechea.stickyheaders.R;
 import ca.barrenechea.widget.recyclerview.decoration.DoubleHeaderAdapter;
 
-public class DoubleHeaderTestAdapter extends RecyclerView.Adapter<DoubleHeaderTestAdapter.ViewHolder> implements
-        DoubleHeaderAdapter<DoubleHeaderTestAdapter.HeaderHolder, DoubleHeaderTestAdapter.SubHeaderHolder> {
+public class DoubleHeaderTestAdapter extends RecyclerView.Adapter<DoubleHeaderTestAdapter.ViewHolder> implements DoubleHeaderAdapter<DoubleHeaderTestAdapter.HeaderHolder, DoubleHeaderTestAdapter.SubHeaderHolder> {
 
     private LayoutInflater mInflater;
 
@@ -38,13 +38,13 @@ public class DoubleHeaderTestAdapter extends RecyclerView.Adapter<DoubleHeaderTe
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         final View view = mInflater.inflate(R.layout.item_test, viewGroup, false);
-
         return new ViewHolder(view);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        viewHolder.item.setText("Item " + i);
+        viewHolder.item.setText(String.format("Item %d", i));
     }
 
     @Override
@@ -59,11 +59,11 @@ public class DoubleHeaderTestAdapter extends RecyclerView.Adapter<DoubleHeaderTe
 
     @Override
     public long getSubHeaderId(int position) {
-        return position / 7;
+        return position / 3;
     }
 
     @Override
-    public HeaderHolder onCreateHeaderHolder(ViewGroup parent) {
+    public HeaderHolder onCreateHeaderViewHolder(ViewGroup parent) {
         final View view = mInflater.inflate(R.layout.super_header_test, parent, false);
         return new HeaderHolder(view);
     }
@@ -74,14 +74,16 @@ public class DoubleHeaderTestAdapter extends RecyclerView.Adapter<DoubleHeaderTe
         return new SubHeaderHolder(view);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
-    public void onBindHeaderHolder(HeaderHolder viewholder, int position) {
-        viewholder.timeline.setText("Header " + getHeaderId(position));
+    public void onBindHeaderViewHolder(HeaderHolder viewHolder, int position) {
+        viewHolder.timeline.setText(String.format("Header %d", getHeaderId(position)));
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void onBindSubHeaderHolder(SubHeaderHolder viewholder, int position) {
-        viewholder.date.setText("Sub-header " + getSubHeaderId(position));
+        viewholder.date.setText(String.format("Sub-header %d", getSubHeaderId(position)));
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

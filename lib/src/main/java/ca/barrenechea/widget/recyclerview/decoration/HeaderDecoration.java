@@ -17,7 +17,11 @@
 package ca.barrenechea.widget.recyclerview.decoration;
 
 import android.support.annotation.DimenRes;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class HeaderDecoration extends RecyclerView.ItemDecoration {
 
@@ -26,7 +30,14 @@ public abstract class HeaderDecoration extends RecyclerView.ItemDecoration {
      */
     public static final int NO_MARGIN_TOP = -1;
 
+    protected HeaderAdapter mAdapter;
     protected int marginTop = HeaderDecoration.NO_MARGIN_TOP;
+    protected Map<Long, RecyclerView.ViewHolder> mHeaderCache;
+
+    public HeaderDecoration(@NonNull final HeaderAdapter adapter) {
+        this.mAdapter = adapter;
+        this.mHeaderCache = new HashMap<>();
+    }
 
     /**
      * Headers will be recreated and rebound on list scroll after this method has been called.
@@ -58,6 +69,16 @@ public abstract class HeaderDecoration extends RecyclerView.ItemDecoration {
      */
     public void setMarginTop(@DimenRes int marginTop) {
         this.marginTop = marginTop;
+    }
+
+
+    protected boolean hasHeader(int position) {
+        if (position == 0 && mAdapter.getHeaderId(position) != RecyclerView.NO_ID) {
+            return true;
+        }
+
+        int previous = position - 1;
+        return mAdapter.getHeaderId(position) != RecyclerView.NO_ID && mAdapter.getHeaderId(position) != mAdapter.getHeaderId(previous);
     }
 
 }

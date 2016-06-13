@@ -22,17 +22,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
  * A sticky header decoration for android's RecyclerView.
  */
 public class StickyHeaderDecoration extends HeaderDecoration {
-
-    private Map<Long, RecyclerView.ViewHolder> mHeaderCache;
-
-    private StickyHeaderAdapter mAdapter;
 
     private boolean mRenderInline;
 
@@ -46,9 +41,8 @@ public class StickyHeaderDecoration extends HeaderDecoration {
     /**
      * @param adapter the sticky header adapter to use
      */
-    public StickyHeaderDecoration(StickyHeaderAdapter adapter, boolean renderInline) {
-        mAdapter = adapter;
-        mHeaderCache = new HashMap<>();
+    public StickyHeaderDecoration(HeaderAdapter adapter, boolean renderInline) {
+        super(adapter);
         mRenderInline = renderInline;
     }
 
@@ -66,15 +60,6 @@ public class StickyHeaderDecoration extends HeaderDecoration {
         }
 
         outRect.set(0, headerHeight, 0, 0);
-    }
-
-    private boolean hasHeader(int position) {
-        if (position == 0 && mAdapter.getHeaderId(position) != RecyclerView.NO_ID) {
-            return true;
-        }
-
-        int previous = position - 1;
-        return mAdapter.getHeaderId(position) != RecyclerView.NO_ID && mAdapter.getHeaderId(position) != mAdapter.getHeaderId(previous);
     }
 
     private RecyclerView.ViewHolder getHeader(RecyclerView parent, int position) {

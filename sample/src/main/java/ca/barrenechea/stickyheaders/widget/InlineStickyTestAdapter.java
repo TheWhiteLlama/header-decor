@@ -16,6 +16,7 @@
 
 package ca.barrenechea.stickyheaders.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -43,9 +44,10 @@ public class InlineStickyTestAdapter
         return new ViewHolder(view);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        viewHolder.item.setText("Item " + i);
+        viewHolder.item.setText(String.format("Item %d", i));
     }
 
     @Override
@@ -64,9 +66,10 @@ public class InlineStickyTestAdapter
         return new HeaderHolder(view);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
-    public void onBindHeaderViewHolder(HeaderHolder viewholder, int position) {
-        viewholder.header.setText(getHeaderId(position) + "");
+    public void onBindHeaderViewHolder(HeaderHolder viewHolder, int position) {
+        viewHolder.header.setText(String.format("%d", getHeaderId(position)));
     }
 
 
