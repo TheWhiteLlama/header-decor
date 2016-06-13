@@ -249,8 +249,6 @@ public class DoubleHeaderDecoration extends HeaderDecoration {
                     }
                 }
             }
-
-            top = Math.max(marginTop, top);
         }
 
         return Math.max(marginTop, top);
@@ -258,10 +256,11 @@ public class DoubleHeaderDecoration extends HeaderDecoration {
 
     private boolean isFirstValidChild(int layoutPos, RecyclerView parent) {
         boolean isFirstValidChild = true;
+        final int marginTop = this.marginTop == HeaderDecoration.NO_MARGIN_TOP ? 0 : parent.getContext().getResources().getDimensionPixelSize(this.marginTop);
         for (int otherLayoutPos = layoutPos - 1; otherLayoutPos >= 0; --otherLayoutPos) {
             final View otherChild = parent.getChildAt(otherLayoutPos);
             if (parent.getChildAdapterPosition(otherChild) != RecyclerView.NO_POSITION) {
-                boolean visible = getAnimatedTop(otherChild) > -otherChild.getHeight();
+                boolean visible = getAnimatedTop(otherChild) > -(marginTop + otherChild.getHeight());
                 if (visible) {
                     isFirstValidChild = false;
                     break;

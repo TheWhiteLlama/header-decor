@@ -153,8 +153,6 @@ public class StickyHeaderDecoration extends HeaderDecoration {
                     }
                 }
             }
-
-            top = Math.max(marginTop, top);
         }
 
         return Math.max(marginTop, top);
