@@ -111,7 +111,7 @@ public class DoubleHeaderDecoration extends HeaderDecoration {
     }
 
     private boolean hasSubHeader(int position) {
-        if (position == 0) {
+        if (position == 0 && mAdapter.getSubHeaderId(position) != RecyclerView.NO_ID) {
             return true;
         }
 
@@ -120,7 +120,7 @@ public class DoubleHeaderDecoration extends HeaderDecoration {
     }
 
     private boolean hasHeader(int position) {
-        if (position == 0) {
+        if (position == 0 && mAdapter.getHeaderId(position) != RecyclerView.NO_ID) {
             return true;
         }
 
