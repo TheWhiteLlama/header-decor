@@ -1,5 +1,6 @@
 /*
  * Copyright 2014 Eduardo Barrenechea
+ * Partial Copyright 2016 Christian Ringshofer
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +29,8 @@ import java.util.Map;
 /**
  * A double sticky header decoration for android's RecyclerView.
  */
-public class DoubleHeaderDecoration extends RecyclerView.ItemDecoration {
+public class DoubleHeaderDecoration extends HeaderDecoration {
+
     private DoubleHeaderAdapter mAdapter;
     private Map<Long, RecyclerView.ViewHolder> mSubHeaderCache;
     private Map<Long, RecyclerView.ViewHolder> mHeaderCache;
@@ -132,7 +134,7 @@ public class DoubleHeaderDecoration extends RecyclerView.ItemDecoration {
         }
 
         int previous = position - 1;
-        return mAdapter.getHeaderId(position) != mAdapter.getHeaderId(previous);
+        return mAdapter.getHeaderId(position) != RecyclerView.NO_ID && mAdapter.getHeaderId(position) != mAdapter.getHeaderId(previous);
     }
 
     /**
@@ -197,6 +199,7 @@ public class DoubleHeaderDecoration extends RecyclerView.ItemDecoration {
 
     private int getSubHeaderTop(RecyclerView parent, View child, View header, View subHeader, int adapterPos, int layoutPos) {
         int top = getAnimatedTop(child) - subHeader.getHeight();
+        final int marginTop = this.marginTop == HeaderDecoration.NO_MARGIN_TOP ? 0 : header.getContext().getResources().getDimensionPixelSize(this.marginTop);
         if (isFirstValidChild(layoutPos, parent)) {
             final int count = parent.getChildCount();
             final long currentHeaderId = mAdapter.getHeaderId(adapterPos);
@@ -217,7 +220,7 @@ public class DoubleHeaderDecoration extends RecyclerView.ItemDecoration {
                         }
 
                         final int offset = getAnimatedTop(next) - headersHeight;
-                        if (offset < header.getHeight()) {
+                        if (offset < marginTop + header.getHeight()) {
                             return offset;
                         } else {
                             break;
@@ -227,11 +230,12 @@ public class DoubleHeaderDecoration extends RecyclerView.ItemDecoration {
             }
         }
 
-        return Math.max(header.getHeight(), top);
+        return Math.max(marginTop + header.getHeight(), top);
     }
 
     private int getHeaderTop(RecyclerView parent, View child, View header, View subHeader, int adapterPos, int layoutPos) {
         int top = getAnimatedTop(child) - header.getHeight() - subHeader.getHeight();
+        final int marginTop = this.marginTop == HeaderDecoration.NO_MARGIN_TOP ? 0 : header.getContext().getResources().getDimensionPixelSize(this.marginTop);
         if (isFirstValidChild(layoutPos, parent)) {
             final int count = parent.getChildCount();
             final long currentId = mAdapter.getHeaderId(adapterPos);
@@ -246,7 +250,7 @@ public class DoubleHeaderDecoration extends RecyclerView.ItemDecoration {
                         final int headersHeight = header.getHeight() + getHeader(parent, adapterPosHere).itemView.getHeight();
                         final int offset = getAnimatedTop(next) - headersHeight - subHeader.getHeight();
 
-                        if (offset < 0) {
+                        if (offset < marginTop) {
                             return offset;
                         } else {
                             break;
@@ -255,10 +259,10 @@ public class DoubleHeaderDecoration extends RecyclerView.ItemDecoration {
                 }
             }
 
-            top = Math.max(0, top);
+            top = Math.max(marginTop, top);
         }
 
-        return top;
+        return Math.max(marginTop, top);
     }
 
     private boolean isFirstValidChild(int layoutPos, RecyclerView parent) {
@@ -277,6 +281,6 @@ public class DoubleHeaderDecoration extends RecyclerView.ItemDecoration {
     }
 
     private int getAnimatedTop(View child) {
-        return child.getTop() + (int)child.getTranslationY();
+        return child.getTop() + (int) child.getTranslationY();
     }
 }

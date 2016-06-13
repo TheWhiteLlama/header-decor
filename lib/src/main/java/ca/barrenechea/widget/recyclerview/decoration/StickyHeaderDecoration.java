@@ -18,7 +18,6 @@ package ca.barrenechea.widget.recyclerview.decoration;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.support.annotation.DimenRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,17 +28,13 @@ import java.util.Map;
 /**
  * A sticky header decoration for android's RecyclerView.
  */
-public class StickyHeaderDecoration extends RecyclerView.ItemDecoration {
-
-    private static final int NO_MARGIN_TOP = -1;
+public class StickyHeaderDecoration extends HeaderDecoration {
 
     private Map<Long, RecyclerView.ViewHolder> mHeaderCache;
 
     private StickyHeaderAdapter mAdapter;
 
     private boolean mRenderInline;
-
-    private int marginTop = NO_MARGIN_TOP;
 
     /**
      * @param adapter the sticky header adapter to use
@@ -146,7 +141,7 @@ public class StickyHeaderDecoration extends RecyclerView.ItemDecoration {
     private int getHeaderTop(RecyclerView parent, View child, View header, int adapterPos, int layoutPos) {
         int headerHeight = getHeaderHeightForLayout(header);
         int top = ((int) child.getY()) - headerHeight;
-        final int marginTop = this.marginTop == NO_MARGIN_TOP ? 0 : header.getContext().getResources().getDimensionPixelSize(this.marginTop);
+        final int marginTop = this.marginTop == HeaderDecoration.NO_MARGIN_TOP ? 0 : header.getContext().getResources().getDimensionPixelSize(this.marginTop);
         if (layoutPos == 0) {
             final int count = parent.getChildCount();
             final long currentId = mAdapter.getHeaderId(adapterPos);
@@ -175,18 +170,6 @@ public class StickyHeaderDecoration extends RecyclerView.ItemDecoration {
 
     private int getHeaderHeightForLayout(View header) {
         return mRenderInline ? 0 : header.getHeight();
-    }
-
-    public boolean hasMarginTop() {
-        return this.marginTop != NO_MARGIN_TOP;
-    }
-
-    public void clearMarginTop() {
-        this.marginTop = NO_MARGIN_TOP;
-    }
-
-    public void setMarginTop(@DimenRes int marginTop) {
-        this.marginTop = marginTop;
     }
 
 }
