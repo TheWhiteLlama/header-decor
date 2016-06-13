@@ -68,14 +68,6 @@ public class StickyHeaderDecoration extends HeaderDecoration {
         outRect.set(0, headerHeight, 0, 0);
     }
 
-    /**
-     * Clears the header view cache. Headers will be recreated and
-     * rebound on list scroll after this method has been called.
-     */
-    public void clearHeaderCache() {
-        mHeaderCache.clear();
-    }
-
     private boolean hasHeader(int position) {
         if (position == 0 && mAdapter.getHeaderId(position) != RecyclerView.NO_ID) {
             return true;
@@ -172,4 +164,8 @@ public class StickyHeaderDecoration extends HeaderDecoration {
         return mRenderInline ? 0 : header.getHeight();
     }
 
+    @Override
+    public void clearCache() {
+        mHeaderCache.clear();
+    }
 }

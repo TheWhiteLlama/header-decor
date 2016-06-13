@@ -46,15 +46,6 @@ public class DoubleHeaderDecoration extends HeaderDecoration {
     }
 
     /**
-     * Clears both the header and subheader view cache. Headers and subheaders will be recreated and
-     * rebound on list scroll after this method has been called.
-     */
-    public void clearDoubleHeaderCache() {
-        clearSubHeaderCache();
-        clearHeaderCache();
-    }
-
-    /**
      * Clears the subheader view cache. Subheaders will be recreated and
      * rebound on list scroll after this method has been called.
      */
@@ -283,4 +274,11 @@ public class DoubleHeaderDecoration extends HeaderDecoration {
     private int getAnimatedTop(View child) {
         return child.getTop() + (int) child.getTranslationY();
     }
+
+    @Override
+    public void clearCache() {
+        clearSubHeaderCache();
+        clearHeaderCache();
+    }
+
 }

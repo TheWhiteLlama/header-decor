@@ -41,7 +41,7 @@ public class InlineStickyHeaderFragment
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_clear_cache) {
-            decor.clearHeaderCache();
+            decor.clearCache();
             return true;
         }
 

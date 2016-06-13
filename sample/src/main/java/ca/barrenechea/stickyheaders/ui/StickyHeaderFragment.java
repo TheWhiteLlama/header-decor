@@ -52,7 +52,7 @@ public class StickyHeaderFragment extends BaseDecorationFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_clear_cache:
-                decor.clearHeaderCache();
+                decor.clearCache();
                 return true;
             case R.id.action_toggle_top_margin:
                 if (decor.hasMarginTop()) {
@@ -60,7 +60,7 @@ public class StickyHeaderFragment extends BaseDecorationFragment {
                 } else {
                     decor.setMarginTop(R.dimen.margin_top);
                 }
-                decor.clearHeaderCache();
+                decor.clearCache();
                 list.invalidate();
                 return true;
         }

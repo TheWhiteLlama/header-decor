@@ -29,6 +29,11 @@ public abstract class HeaderDecoration extends RecyclerView.ItemDecoration {
     protected int marginTop = HeaderDecoration.NO_MARGIN_TOP;
 
     /**
+     * Headers will be recreated and rebound on list scroll after this method has been called.
+     */
+    public abstract void clearCache();
+
+    /**
      * check if the adapter is using a top margin for its sticky-headers
      *
      * @return true if the adapter is using top margin

@@ -60,7 +60,7 @@ public class DoubleHeaderFragment extends BaseDecorationFragment {
                 } else {
                     decor.setMarginTop(R.dimen.margin_top);
                 }
-                decor.clearDoubleHeaderCache();
+                decor.clearCache();
                 list.invalidate();
                 return true;
         }
