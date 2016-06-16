@@ -16,6 +16,7 @@
 
 apply plugin: 'com.android.library'
 //apply plugin: 'bintray-release'
+apply plugin: 'com.vanniktech.android.javadoc.library'
 
 android {
     compileSdkVersion 24
@@ -44,14 +45,6 @@ dependencies {
     compile 'com.android.support:support-annotations:24.0.0'
     javadocDeps 'com.android.support:recyclerview-v7:24.0.0'
     javadocDeps 'com.android.support:support-annotations:24.0.0'
-}
-
-task javadocDebug(dependsOn: ['assembleDebug'], type: Javadoc) {
-    classpath += configurations.javadocDeps
-}
-
-task javadocRelease(dependsOn: ['assembleRelease'], type: Javadoc) {
-    classpath += configurations.javadocDeps
 }
 
 apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
