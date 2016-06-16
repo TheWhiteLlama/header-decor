@@ -51,6 +51,7 @@ dependencies {
 
 task allJavadoc(dependsOn: ['assembleDebug', 'assembleRelease'], type: Javadoc) {
     classpath += configurations.javadocDeps
+    failOnError false
 }
 
 apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
