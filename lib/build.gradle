@@ -46,7 +46,11 @@ dependencies {
     javadocDeps 'com.android.support:support-annotations:24.0.0'
 }
 
-task allJavadoc(dependsOn: ['assembleRelease'], type: Javadoc) {
+task javadocDebug(dependsOn: ['assembleDebug'], type: Javadoc) {
+    classpath += configurations.javadocDeps
+}
+
+task javadocRelease(dependsOn: ['assembleRelease'], type: Javadoc) {
     classpath += configurations.javadocDeps
 }
 
