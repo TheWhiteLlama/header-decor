@@ -207,7 +207,7 @@ public class HeaderDecoration extends RecyclerView.ItemDecoration {
     /**
      * set the top margin of the headers so that they will stop before reaching the top border of the view.
      * This is very useful when implementing sticky-headers combined with smooth-app-bar-layout:
-     * <a href="https://github.com/henrytao-me/smooth-app-bar-layout">Smooth-App-Bar-Layout by henrytao-me</a>
+     * https://github.com/henrytao-me/smooth-app-bar-layout
      *
      * @param marginTop the margin top dimension
      */
