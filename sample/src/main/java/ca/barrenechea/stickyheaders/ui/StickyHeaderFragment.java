@@ -22,18 +22,18 @@ import android.view.MenuItem;
 
 import ca.barrenechea.stickyheaders.R;
 import ca.barrenechea.stickyheaders.widget.StickyTestAdapter;
-import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderDecoration;
+import ca.barrenechea.widget.recyclerview.decoration.HeaderDecoration;
 
 public class StickyHeaderFragment extends BaseDecorationFragment {
 
     private RecyclerView list;
 
-    private StickyHeaderDecoration decor;
+    private HeaderDecoration decor;
 
     @Override
     protected void setAdapterAndDecor(RecyclerView list) {
         final StickyTestAdapter adapter = new StickyTestAdapter(this.getActivity());
-        decor = new StickyHeaderDecoration(adapter);
+        decor = new HeaderDecoration(adapter);
         setHasOptionsMenu(true);
 
         this.list = list;

@@ -49,16 +49,18 @@ public class DoubleHeaderTestAdapter extends RecyclerView.Adapter<DoubleHeaderTe
 
     @Override
     public int getItemCount() {
-        return 50;
+        return 100;
     }
 
     @Override
     public long getHeaderId(int position) {
-        return position / 14;
+        if (position < 5) return RecyclerView.NO_ID; // test leaving out headers
+        return position / 18;
     }
 
     @Override
     public long getSubHeaderId(int position) {
+        if (position < 18) return RecyclerView.NO_ID; // test leaving out headers
         return position / 3;
     }
 

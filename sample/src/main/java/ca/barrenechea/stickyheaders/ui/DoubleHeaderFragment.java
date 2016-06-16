@@ -22,18 +22,18 @@ import android.view.MenuItem;
 
 import ca.barrenechea.stickyheaders.R;
 import ca.barrenechea.stickyheaders.widget.DoubleHeaderTestAdapter;
-import ca.barrenechea.widget.recyclerview.decoration.DoubleHeaderDecoration;
+import ca.barrenechea.widget.recyclerview.decoration.HeaderDecoration;
 
 public class DoubleHeaderFragment extends BaseDecorationFragment {
 
     private RecyclerView list;
 
-    private DoubleHeaderDecoration decor;
+    private HeaderDecoration decor;
 
     @Override
     protected void setAdapterAndDecor(RecyclerView list) {
         final DoubleHeaderTestAdapter adapter = new DoubleHeaderTestAdapter(this.getActivity());
-        decor = new DoubleHeaderDecoration(adapter);
+        decor = new HeaderDecoration(adapter);
         setHasOptionsMenu(true);
 
         this.list = list;
